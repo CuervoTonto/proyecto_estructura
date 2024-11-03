@@ -1,6 +1,6 @@
 package co.edu.uniquindio.estructuras.listas;
 
-public interface ILista<E>
+public interface ILista<E> extends Iterable<E>
 {
     /**
      * agrega un elemento a la lista

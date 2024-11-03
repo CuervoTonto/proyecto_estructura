@@ -150,4 +150,18 @@ public class Cola<E>
     {
         return this.longitud;
     }
+
+    @Override
+    public Cola<E> clone()
+    {
+        Cola<E> clon = new Cola<>();
+        NodoSimple<E> actual = primero;
+
+        while (actual != null) {
+            clon.encolar(actual.getValor());
+            actual = actual.getProximo();
+        }
+
+        return clon;
+    }
 }

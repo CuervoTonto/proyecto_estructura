@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estructuras.listas;
 
+import java.util.Iterator;
+
 import co.edu.uniquindio.estructuras.nodos.NodoSimple;
 
 public class ListaSimple<E> implements ILista<E>, Cloneable
@@ -232,11 +234,42 @@ public class ListaSimple<E> implements ILista<E>, Cloneable
         return clon;
     }
 
+    @Override
+    public Iterator<E> iterator()
+    {
+        return new IteradorLista();
+    }
+
     /**
      * obtiene la cantidad de elementos en la lista
      */
     public int getLongitud()
     {
         return this.longitud;
+    }
+
+    private class IteradorLista implements Iterator<E>
+    {
+        private NodoSimple<E> actual;
+
+        public IteradorLista()
+        {
+            this.actual = primero;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.actual != null;
+        }
+
+        @Override
+        public E next()
+        {
+            E valor = this.actual.getValor();
+            this.actual = actual.getProximo();
+
+            return valor;
+        }
     }
 }

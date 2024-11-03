@@ -1,5 +1,7 @@
 package co.edu.uniquindio.estructuras.listas;
 
+import java.util.Iterator;
+
 import co.edu.uniquindio.estructuras.nodos.NodoDoble;
 
 public class ListaDoble<E> implements ILista<E>
@@ -203,5 +205,36 @@ public class ListaDoble<E> implements ILista<E>
         }
 
         return clon;
+    }
+
+    @Override
+    public Iterator<E> iterator() 
+    {
+        return new IteradorLista();
+    }
+
+    private class IteradorLista implements Iterator<E>
+    {
+        private NodoDoble<E> actual;
+
+        public IteradorLista()
+        {
+            this.actual = primero;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.actual != null;
+        }
+
+        @Override
+        public E next()
+        {
+            E valor = this.actual.getValor();
+            this.actual = actual.getProximo();
+
+            return valor;
+        }
     }
 }

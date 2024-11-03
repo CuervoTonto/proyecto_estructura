@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.8" class="java.beans.XMLDecoder">
+ <object class="co.edu.uniquindio.estructuras.listas.ListaSimple" id="ListaSimple0">
+  <void method="agregar">
+   <object class="co.edu.uniquindio.modelos.Usuario">
+    <void property="clave">
+     <string>123</string>
+    </void>
+    <void property="correo">
+     <string>example2@test.com</string>
+    </void>
+    <void property="nombre">
+     <string>Chavo</string>
+    </void>
+    <void property="tipo">
+     <object class="java.lang.Enum" id="Usuario$TipoUsuario0" method="valueOf">
+      <class>co.edu.uniquindio.modelos.Usuario$TipoUsuario</class>
+      <string>NORMAL</string>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void method="agregar">
+   <object class="co.edu.uniquindio.modelos.Usuario">
+    <void property="clave">
+     <string>123</string>
+    </void>
+    <void property="correo">
+     <string>example@test.com</string>
+    </void>
+    <void property="nombre">
+     <string>Diegotte</string>
+    </void>
+    <void property="tipo">
+     <object idref="Usuario$TipoUsuario0"/>
+    </void>
+   </object>
+  </void>
+  <void method="agregar">
+   <object class="co.edu.uniquindio.modelos.Usuario">
+    <void property="clave">
+     <string>123</string>
+    </void>
+    <void property="correo">
+     <string>example3@test.com</string>
+    </void>
+    <void property="nombre">
+     <string>Diegotte_2</string>
+    </void>
+    <void property="tipo">
+     <object idref="Usuario$TipoUsuario0"/>
+    </void>
+   </object>
+  </void>
+  <void method="agregar">
+   <object class="co.edu.uniquindio.modelos.Usuario">
+    <void property="clave">
+     <string>hola</string>
+    </void>
+    <void property="correo">
+     <string>admin@test.com</string>
+    </void>
+    <void property="nombre">
+     <string>admin</string>
+    </void>
+    <void property="tipo">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>co.edu.uniquindio.modelos.Usuario$TipoUsuario</class>
+      <string>ADMINISTRADOR</string>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
