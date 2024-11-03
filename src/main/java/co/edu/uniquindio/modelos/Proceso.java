@@ -3,7 +3,7 @@ package co.edu.uniquindio.modelos;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
-import co.edu.uniquindio.excepciones.actividades.ActividadRegistrada;
+import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 
 public class Proceso
 {
@@ -24,11 +24,11 @@ public class Proceso
         this.actividades = new ListaSimple<>();
     }
 
-    public void registrarActividad(Actividad actividad) throws ActividadRegistrada
+    public void registrarActividad(Actividad actividad) throws ActividadRegistradaException
     {
         for (Actividad item : actividades) {
             if (item.getNombre().equalsIgnoreCase(actividad.getNombre())) {
-                throw new ActividadRegistrada();
+                throw new ActividadRegistradaException();
             }
         }
 
@@ -36,14 +36,14 @@ public class Proceso
         ultimaRegistrada = actividad.getNombre();
     }
 
-    public void registrarActividad(String predecesora, Actividad actividad) throws ActividadRegistrada
+    public void registrarActividad(String predecesora, Actividad actividad) throws ActividadRegistradaException
     {
         int indicePredecesor = -1;
         int indiceActual = 0;
 
         for (Actividad item : actividades) {
             if (item.getNombre().equalsIgnoreCase(actividad.getNombre())) {
-                throw new ActividadRegistrada();
+                throw new ActividadRegistradaException();
             }
 
             if (item.getNombre().equalsIgnoreCase(predecesora)) {
@@ -57,7 +57,7 @@ public class Proceso
         ultimaRegistrada = actividad.getNombre();
     }
 
-    public void registrarActividadDesdeAnterior(Actividad actividad) throws ActividadRegistrada
+    public void registrarActividadDesdeAnterior(Actividad actividad) throws ActividadRegistradaException
     {
         if (ultimaRegistrada != null) {
             registrarActividad(ultimaRegistrada, actividad);

@@ -22,6 +22,57 @@ public class Actividad
         this.tareas = new Cola<>();
     }
 
+    public void agregarTarea(Tarea tarea)
+    {
+        agregarTarea(tareas.longtiud(), tarea);
+    }
+
+    public void agregarTarea(int indice, Tarea tarea)
+    {
+        // verificar rango
+        if (indice < 0 || indice > tareas.longtiud()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (tareas.estaVacia()) {
+            tareas.encolar(tarea);
+        } else {
+            int indiceActual = 0;
+            int numElementos = tareas.longtiud();
+            Cola<Tarea> aux = new Cola<>();
+            Tarea ultimoIns = null;
+
+            // mientras buscamos elemento que corresponde al indice
+            // desencolamos de la principal y guardamos en la auxiliar
+            while (indiceActual <= numElementos) {
+                // si este es el punto en el que queremos insertar
+                if (indiceActual == indice) {
+                    // miramos si el elemento que queda a la izquierda del
+                    // que queremos insertar es opcional
+                    boolean l = ultimoIns == null ? false : ultimoIns.isOpcional();
+                    // los mismo para el elemento de la derecha
+                    boolean r = tareas.estaVacia() ? false : tareas.elemento().isOpcional();
+
+                    if (l || r) { // si alguno de sus adyacentes es opcional
+                        // si la tarea no es opcional insertamos
+                        if (! tarea.isOpcional()) aux.encolar(tarea);
+                    } else {
+                        aux.encolar(tarea);
+                    }
+                }
+
+                if (! tareas.estaVacia()) {
+                    aux.encolar(ultimoIns = tareas.desencolar());
+                }
+
+                indiceActual++;
+            }
+
+            // volvemos a encolar los elementos desencolados para que no se pierdan
+            while (! aux.estaVacia()) tareas.encolar(aux.desencolar());
+        }
+    }
+
     public String getNombre()
     {
         return nombre;

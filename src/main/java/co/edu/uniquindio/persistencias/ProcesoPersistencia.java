@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
-import co.edu.uniquindio.excepciones.procesos.ProcesoRegistrado;
+import co.edu.uniquindio.excepciones.procesos.ProcesoRegistradoException;
 import co.edu.uniquindio.modelos.Proceso;
 import co.edu.uniquindio.utilidades.Persistencia;
 
@@ -31,17 +31,17 @@ final public class ProcesoPersistencia
         Persistencia.escribirXML(path, lista);
     }
 
-    public void registrar(Proceso proceso) throws IOException, ProcesoRegistrado
+    public void registrar(Proceso proceso) throws IOException, ProcesoRegistradoException
     {
         ListaSimple<Proceso> procesos = todos();
 
         for (Proceso item : procesos) {
             if (proceso.getId().equals(item.getId())) {
-                throw new ProcesoRegistrado("El id ya ha sido tomado");
+                throw new ProcesoRegistradoException("El id ya ha sido tomado");
             }
 
             if (proceso.getNombre().equals(item.getNombre())) {
-                throw new ProcesoRegistrado("El nombre ya ha sido tomado");
+                throw new ProcesoRegistradoException("El nombre ya ha sido tomado");
             }
         }
 

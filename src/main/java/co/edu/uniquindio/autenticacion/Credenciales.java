@@ -1,7 +1,7 @@
 package co.edu.uniquindio.autenticacion;
 
 import co.edu.uniquindio.excepciones.autenticacion.AutenticacionException;
-import co.edu.uniquindio.excepciones.autenticacion.UsuarioClaveIncorrecta;
+import co.edu.uniquindio.excepciones.autenticacion.UsuarioClaveIncorrectaException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.modelos.Usuario.TipoUsuario;
 
@@ -28,7 +28,7 @@ public class Credenciales
         if (! usuario.getCorreo().equalsIgnoreCase(correo)) return false;
 
         if (! usuario.getClave().equals(clave)) {
-            throw new UsuarioClaveIncorrecta();
+            throw new UsuarioClaveIncorrectaException();
         }
 
         return true;

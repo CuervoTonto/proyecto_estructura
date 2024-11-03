@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.autenticacion.AutenticacionException;
-import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistrado;
+import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistradoException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.persistencias.UsuarioPersistencia;
 
@@ -30,7 +30,7 @@ public class Autenticador
         }
 
         if (! Sesion.getInstancia().autenticado()) {
-            throw new UsuarioNoRegistrado();
+            throw new UsuarioNoRegistradoException();
         }
 
         return true;
