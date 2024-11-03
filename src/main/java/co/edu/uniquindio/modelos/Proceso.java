@@ -24,6 +24,47 @@ public class Proceso
         this.actividades = new ListaSimple<>();
     }
 
+    public int calcularDuracionMinima()
+    {
+        int acumulado = 0;
+
+        for (Actividad actividad : actividades) {
+            if (! actividad.isOpcional()) {
+                acumulado += actividad.calcularDuracionMinima();
+            }
+        }
+
+        return acumulado;
+    }
+
+    public int calcularDuracionMaxima()
+    {
+        int acumulado = 0;
+
+        for (Actividad actividad : actividades) {
+            acumulado += actividad.calcularDuracionMaxima();
+        }
+
+        return acumulado;
+    }
+
+    /**
+     * intercambia el nombre de 2 actividades
+     * 
+     * @param act1 nombre de la primera actividad
+     * @param act2 nombre de la segunda actividad
+     */
+    public void intercambiarActividades(String act1, String act2)
+    {
+        obtenerActividad(act1).ifPresent((a) -> {
+            obtenerActividad(act2).ifPresent((b) -> {
+                String temp = a.getNombre();
+                a.setNombre(b.getNombre());
+                b.setNombre(temp);
+            });
+        });
+    }
+
     public void registrarActividad(Actividad actividad) throws ActividadRegistradaException
     {
         for (Actividad item : actividades) {

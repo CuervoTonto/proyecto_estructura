@@ -22,6 +22,32 @@ public class Actividad
         this.tareas = new Cola<>();
     }
 
+    public int calcularDuracionMinima()
+    {
+        int acumulado = 0;
+        Cola<Tarea> tareas = this.tareas.clone();
+
+        while (! tareas.estaVacia()) {
+            Tarea tarea = tareas.desencolar();
+
+            if (! tarea.isOpcional()) acumulado += tarea.getDuracion();
+        }
+        
+        return acumulado;
+    }
+
+    public int  calcularDuracionMaxima()
+    {
+        int acumulado = 0;
+        Cola<Tarea> tareas = this.tareas.clone();
+
+        while (! tareas.estaVacia()) {
+            acumulado += tareas.desencolar().getDuracion();
+        }
+
+        return acumulado;
+    }
+
     public void agregarTarea(Tarea tarea)
     {
         agregarTarea(tareas.longtiud(), tarea);
