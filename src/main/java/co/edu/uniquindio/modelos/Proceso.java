@@ -10,6 +10,7 @@ public class Proceso
     private String id;
     private String nombre;
     private ListaSimple<Actividad> actividades;
+    private String ultimaRegistrada;
 
     public Proceso()
     {
@@ -32,6 +33,37 @@ public class Proceso
         }
 
         actividades.agregar(actividad);
+        ultimaRegistrada = actividad.getNombre();
+    }
+
+    public void registrarActividad(String predecesora, Actividad actividad) throws ActividadRegistrada
+    {
+        int indicePredecesor = -1;
+        int indiceActual = 0;
+
+        for (Actividad item : actividades) {
+            if (item.getNombre().equalsIgnoreCase(actividad.getNombre())) {
+                throw new ActividadRegistrada();
+            }
+
+            if (item.getNombre().equalsIgnoreCase(predecesora)) {
+                indicePredecesor = indiceActual;
+            }
+
+            indiceActual++;
+        }
+
+        actividades.agregar(indicePredecesor, actividad);
+        ultimaRegistrada = actividad.getNombre();
+    }
+
+    public void registrarActividadDesdeAnterior(Actividad actividad) throws ActividadRegistrada
+    {
+        if (ultimaRegistrada != null) {
+            registrarActividad(ultimaRegistrada, actividad);
+        } else {
+            registrarActividad(actividad);
+        }
     }
 
     public Optional<Actividad> obtenerActividad(String nombre)
