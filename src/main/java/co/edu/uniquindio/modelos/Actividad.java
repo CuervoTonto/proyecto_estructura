@@ -114,7 +114,7 @@ public class Actividad
             }
 
             if (descripcion != null) {
-                if (tarea.getDescripcion().matches("%" + descripcion + "%")) {
+                if (tarea.getDescripcion().matches("(?i).*" + descripcion + ".*")) {
                     resultado.encolar(tarea);
                 }
             } else {

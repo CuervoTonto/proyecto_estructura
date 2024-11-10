@@ -119,6 +119,49 @@ public class Proceso
         return Optional.empty();
     }
 
+    public ListaSimple<Actividad> buscarActividad(String nombre, String descripcion, Boolean opcional)
+    {
+        ListaSimple<Actividad> resultado = new ListaSimple<>();
+
+        for (Actividad actividad : this.actividades) {
+            // si se esta filtrando por opcionales y la propiedad
+            // de la actividad no coincide pasar a la siguiente
+            if (opcional != null) {
+                if (opcional.booleanValue() != actividad.isOpcional()) {
+                    continue;
+                }
+            }
+
+            // si se esta filtrando por descripciones y la propiedad
+            // de la actividad no coincide pasar a la siguiente
+            if (descripcion != null) {
+                if (actividad.getDescripicion() != null) {
+                    if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
+                        continue;
+                    }
+                }
+            }
+
+            // si se esta filtrando por nombres y la propiedad
+            // de la actividad no coincide pasar a la siguiente
+            // en caso de no buscar por nombre agregar como resultado
+
+            // tener en cuenta que si esta validando esto es debido a que
+            // tanto opcional como descripcion coindicen con los criterios
+            if (nombre != null) {
+                if (actividad.getNombre() == null) continue;
+
+                if (actividad.getNombre().matches("(?i).*"+nombre+".*")) {
+                    resultado.agregar(actividad);
+                }
+            } else {
+                resultado.agregar(actividad);
+            }
+        }
+
+        return resultado;
+    }
+
     public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)
     {
         Cola<Tarea> tareas = new Cola<>();
