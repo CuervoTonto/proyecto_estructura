@@ -99,6 +99,32 @@ public class Actividad
         }
     }
 
+    public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)
+    {
+        Cola<Tarea> tareas = this.tareas.clone();
+        Cola<Tarea> resultado = new Cola<>();
+
+        while (! tareas.estaVacia()) {
+            Tarea tarea = tareas.desencolar();
+
+            if (opcional != null) {
+                if (opcional.booleanValue() != tarea.isOpcional()) {
+                    continue;
+                }
+            }
+
+            if (descripcion != null) {
+                if (tarea.getDescripcion().matches("%" + descripcion + "%")) {
+                    resultado.encolar(tarea);
+                }
+            } else {
+                resultado.encolar(tarea);
+            }
+        }
+
+        return resultado;
+    }
+
     public String getNombre()
     {
         return nombre;

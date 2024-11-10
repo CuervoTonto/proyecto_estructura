@@ -2,6 +2,7 @@ package co.edu.uniquindio.modelos;
 
 import java.util.Optional;
 
+import co.edu.uniquindio.estructuras.colas.Cola;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 
@@ -116,6 +117,21 @@ public class Proceso
         }
 
         return Optional.empty();
+    }
+
+    public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)
+    {
+        Cola<Tarea> tareas = new Cola<>();
+
+        for (Actividad actividad : actividades) {
+            Cola<Tarea> coincidencias = actividad.buscarTareas(descripcion, opcional);
+
+            while (! coincidencias.estaVacia()) {
+                tareas.encolar(coincidencias.desencolar());
+            }
+        }
+
+        return tareas;
     }
 
     public String getId()
