@@ -3,6 +3,7 @@ package co.edu.uniquindio.modelos;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
+import co.edu.uniquindio.estructuras.listas.ListaDoble;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 
@@ -10,19 +11,19 @@ public class Proceso
 {
     private String id;
     private String nombre;
-    private ListaSimple<Actividad> actividades;
+    private ListaDoble<Actividad> actividades;
     private String ultimaRegistrada;
 
     public Proceso()
     {
-        this.actividades = new ListaSimple<>();
+        this.actividades = new ListaDoble<>();
     }
 
     public Proceso(String id, String nombre)
     {
         this.id = id;
         this.nombre = nombre;
-        this.actividades = new ListaSimple<>();
+        this.actividades = new ListaDoble<>();
     }
 
     public int calcularDuracionMinima()
@@ -197,12 +198,12 @@ public class Proceso
         this.nombre = nombre;
     }
 
-    public ListaSimple<Actividad> getActividades()
+    public ListaDoble<Actividad> getActividades()
     {
         return actividades;
     }
 
-    public void setActividades(ListaSimple<Actividad> actividades)
+    public void setActividades(ListaDoble<Actividad> actividades)
     {
         this.actividades = actividades;
     }
