@@ -220,17 +220,23 @@ public class ListaDobleCircular<E> implements ILista<E>
     @Override
     public Iterator<E> iterator()
     {
-        return new IteradorListaCircular();
+        return new IteradorListaCircular(primero);
+    }
+
+    public Iterator<E> iterator(int indice)
+    {
+        return new IteradorListaCircular(obtenerNodo(indice));
     }
 
     private class IteradorListaCircular implements Iterator<E>
     {
+        private NodoDoble<E> inicial;
         private NodoDoble<E> actual;
         private int restantes;
 
-        public IteradorListaCircular()
+        public IteradorListaCircular(NodoDoble<E> nodo)
         {
-            this.actual = primero;
+            this.actual = nodo;
             this.restantes = 1;
         }
 
@@ -246,7 +252,7 @@ public class ListaDobleCircular<E> implements ILista<E>
             E valor = actual.getValor();
             this.actual = this.actual.getProximo();
 
-            if (actual == primero) this.restantes--;
+            if (actual == inicial) this.restantes--;
 
             return valor;
         }

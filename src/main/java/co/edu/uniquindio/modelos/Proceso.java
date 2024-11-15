@@ -3,7 +3,7 @@ package co.edu.uniquindio.modelos;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
-import co.edu.uniquindio.estructuras.listas.ListaDoble;
+import co.edu.uniquindio.estructuras.listas.ListaDobleCircular;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 
@@ -11,19 +11,19 @@ public class Proceso
 {
     private String id;
     private String nombre;
-    private ListaDoble<Actividad> actividades;
+    private ListaDobleCircular<Actividad> actividades;
     private String ultimaRegistrada;
 
     public Proceso()
     {
-        this.actividades = new ListaDoble<>();
+        this.actividades = new ListaDobleCircular<>();
     }
 
     public Proceso(String id, String nombre)
     {
         this.id = id;
         this.nombre = nombre;
-        this.actividades = new ListaDoble<>();
+        this.actividades = new ListaDobleCircular<>();
     }
 
     public int calcularDuracionMinima()
@@ -140,6 +140,8 @@ public class Proceso
                     if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
                         continue;
                     }
+                } else {
+                    continue;
                 }
             }
 
@@ -161,6 +163,39 @@ public class Proceso
         }
 
         return resultado;
+    }
+
+    public boolean contieneActividad(String nombre, String descripcion, Boolean opcional)
+    {
+        for (Actividad actividad : this.actividades) {
+            if (opcional != null) {
+                if (opcional.booleanValue() != actividad.isOpcional()) {
+                    continue;
+                }
+            }
+
+            if (descripcion != null) {
+                if (actividad.getDescripicion() != null) {
+                    if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
+
+            if (nombre != null) {
+                if (actividad.getNombre() == null) continue;
+
+                if (actividad.getNombre().matches("(?i).*" + nombre + ".*")) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)
@@ -198,13 +233,23 @@ public class Proceso
         this.nombre = nombre;
     }
 
-    public ListaDoble<Actividad> getActividades()
+    public ListaDobleCircular<Actividad> getActividades()
     {
         return actividades;
     }
 
-    public void setActividades(ListaDoble<Actividad> actividades)
+    public void setActividades(ListaDobleCircular<Actividad> actividades)
     {
         this.actividades = actividades;
+    }
+
+    public String getUltimaRegistrada()
+    {
+        return ultimaRegistrada;
+    }
+
+    public void setUltimaRegistrada(String ultimaRegistrada)
+    {
+        this.ultimaRegistrada = ultimaRegistrada;
     }
 }
