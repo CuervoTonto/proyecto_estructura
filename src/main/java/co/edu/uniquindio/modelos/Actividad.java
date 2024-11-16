@@ -22,6 +22,22 @@ public class Actividad
         this.tareas = new Cola<>();
     }
 
+    public void iniciarActividad(boolean duracionMinima)
+    {
+        Cola<Tarea> cola = tareas.clone();
+
+        while (! cola.estaVacia()) {
+            Tarea tarea = cola.desencolar();
+
+            try {
+                Thread.sleep(tarea.getDuracion() * 1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     public int calcularDuracionMinima()
     {
         int acumulado = 0;

@@ -1,11 +1,13 @@
 package co.edu.uniquindio.modelos;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
 import co.edu.uniquindio.estructuras.listas.ListaDobleCircular;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
+import co.edu.uniquindio.excepciones.procesos.ActividadNoEncontradaException;
 
 public class Proceso
 {
@@ -13,10 +15,11 @@ public class Proceso
     private String nombre;
     private ListaDobleCircular<Actividad> actividades;
     private String ultimaRegistrada;
+    private Boolean iniciado;
 
     public Proceso()
     {
-        this.actividades = new ListaDobleCircular<>();
+        this(null, null);
     }
 
     public Proceso(String id, String nombre)
@@ -24,6 +27,33 @@ public class Proceso
         this.id = id;
         this.nombre = nombre;
         this.actividades = new ListaDobleCircular<>();
+        this.iniciado = false;
+    }
+
+    public void iniciarProceso(String actividad, boolean duracionMinima) throws ActividadNoEncontradaException
+    {
+        if (iniciado) return;
+
+        iniciado = true;
+        Optional<Actividad> inicio = obtenerActividad(actividad);
+
+        if (inicio.isPresent()) {
+            new Thread(() -> {
+                Iterator<Actividad> it = actividades.iterator();
+                Actividad actual = null;
+
+                while ((actual = it.next()) != inicio.get()) {}
+
+                for (int i = 0; i < actividades.getLongitud(); i++) {
+                    actual.iniciarActividad(duracionMinima);
+                    actual = it.next();
+                }
+
+                iniciado = false;
+            }).start();
+        } else {
+            throw new ActividadNoEncontradaException();
+        }
     }
 
     public int calcularDuracionMinima()

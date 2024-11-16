@@ -237,6 +237,7 @@ public class ListaDobleCircular<E> implements ILista<E>
         public IteradorListaCircular(NodoDoble<E> nodo)
         {
             this.actual = nodo;
+            this.inicial = nodo;
             this.restantes = 1;
         }
 
