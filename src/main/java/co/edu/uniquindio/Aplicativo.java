@@ -1,8 +1,10 @@
 package co.edu.uniquindio;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
+import co.edu.uniquindio.excepciones.procesos.ProcesoRegistradoException;
 import co.edu.uniquindio.modelos.Actividad;
 import co.edu.uniquindio.modelos.Proceso;
 
@@ -13,6 +15,24 @@ public class Aplicativo
     public Aplicativo()
     {
         this.procesos = new ListaSimple<>();
+    }
+
+    public void registrarProceso(Proceso proceso) throws ProcesoRegistradoException
+    {
+        if (procesoExistente(proceso.getId())) {
+            throw new ProcesoRegistradoException();
+        }
+
+        procesos.agregar(proceso);
+    }
+
+    public boolean procesoExistente(String id)
+    {
+        for (Proceso proceso : procesos) {
+            if (proceso.getId().equals(id)) return true;
+        }
+
+        return false;
     }
 
     /**
@@ -73,6 +93,23 @@ public class Aplicativo
         }
 
         return procesos;
+    }
+
+    public void removerProceso(String id)
+    {
+        Iterator<Proceso> it = procesos.iterator();
+        int indice = 0;
+        boolean encontrado = false;
+
+        while (it.hasNext() && ! encontrado) {
+            if (it.next().getId().equals(id)) {
+                encontrado = true;
+            } else {
+                indice++;
+            }
+        }
+
+        if (encontrado) procesos.remover(indice);
     }
 
     public ListaSimple<Proceso> getProcesos()

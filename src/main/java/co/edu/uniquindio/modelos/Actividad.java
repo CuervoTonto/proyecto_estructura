@@ -35,7 +35,10 @@ public class Actividad
                 e.printStackTrace();
             }
 
+            System.out.println("Tarea: " + tarea.getDescripcion());
         }
+
+        System.out.println();
     }
 
     public int calcularDuracionMinima()
@@ -141,6 +144,18 @@ public class Actividad
         return resultado;
     }
 
+    public void removerTarea(Tarea tarea)
+    {
+        Cola<Tarea> aux = new Cola<>();
+
+        while (! tareas.estaVacia()) {
+            Tarea actual = tareas.desencolar();
+            if (tarea != actual) aux.encolar(actual);
+        }
+
+        while (! aux.estaVacia()) tareas.encolar(aux.desencolar());
+    }
+
     public String getNombre()
     {
         return nombre;
@@ -173,7 +188,7 @@ public class Actividad
 
     public Cola<Tarea> getTareas()
     {
-        return tareas;
+        return tareas.clone();
     }
 
     public void setTareas(Cola<Tarea> tareas)

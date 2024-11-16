@@ -198,25 +198,23 @@ public class Proceso
     public boolean contieneActividad(String nombre, String descripcion, Boolean opcional)
     {
         for (Actividad actividad : this.actividades) {
+            // filtrar actividades opcionales (si se selecciona)
             if (opcional != null) {
                 if (opcional.booleanValue() != actividad.isOpcional()) {
                     continue;
                 }
             }
 
+            // filtrar actividades por descripcion
             if (descripcion != null) {
-                if (actividad.getDescripicion() != null) {
-                    if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
-                        continue;
-                    }
-                } else {
+                if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
                     continue;
                 }
             }
 
+            // filtrar actividades por nombre
+            // este es el ultimo filtro, aqui se decide si se retorno
             if (nombre != null) {
-                if (actividad.getNombre() == null) continue;
-
                 if (actividad.getNombre().matches("(?i).*" + nombre + ".*")) {
                     return true;
                 }
@@ -226,6 +224,23 @@ public class Proceso
         }
 
         return false;
+    }
+
+    public void removerActividad(Actividad actividad)
+    {
+        Iterator<Actividad> it = actividades.iterator();
+        int indice = 0;
+        boolean encontrado = false;
+
+        while (it.hasNext() && ! encontrado) {
+            if (it.next() == actividad) {
+                encontrado = true;
+            } else {
+                indice++;
+            }
+        }
+
+        if (encontrado) actividades.remover(indice);
     }
 
     public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)
