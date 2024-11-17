@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
+import co.edu.uniquindio.estructuras.listas.ListaDobleCircular;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.utilidades.persistencia.ColaDelegate;
 import co.edu.uniquindio.utilidades.persistencia.ListaDelegate;
@@ -37,6 +38,7 @@ final public class Persistencia
         XMLEncoder encoder = new XMLEncoder(new FileOutputStream(path));
 
         encoder.setPersistenceDelegate(ListaSimple.class, new ListaDelegate());
+        encoder.setPersistenceDelegate(ListaDobleCircular.class, new ListaDelegate());
         encoder.setPersistenceDelegate(Cola.class, new ColaDelegate());
 
         return encoder;

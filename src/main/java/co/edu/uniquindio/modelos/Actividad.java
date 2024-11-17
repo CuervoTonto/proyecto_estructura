@@ -29,16 +29,15 @@ public class Actividad
         while (! cola.estaVacia()) {
             Tarea tarea = cola.desencolar();
 
+            if (tarea.isOpcional() && duracionMinima) continue;
+
+            // simula la realizacion de la tarea dado el tiempo de la misma
             try {
                 Thread.sleep(tarea.getDuracion() * 1000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Tarea: " + tarea.getDescripcion());
         }
-
-        System.out.println();
     }
 
     public int calcularDuracionMinima()
@@ -67,12 +66,12 @@ public class Actividad
         return acumulado;
     }
 
-    public void agregarTarea(Tarea tarea)
+    public void registrarTarea(Tarea tarea)
     {
-        agregarTarea(tareas.longtiud(), tarea);
+        registrarTarea(tareas.longtiud(), tarea);
     }
 
-    public void agregarTarea(int indice, Tarea tarea)
+    public void registrarTarea(int indice, Tarea tarea)
     {
         // verificar rango
         if (indice < 0 || indice > tareas.longtiud()) {

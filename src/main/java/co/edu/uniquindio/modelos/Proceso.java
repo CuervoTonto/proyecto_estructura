@@ -45,6 +45,8 @@ public class Proceso
                 while ((actual = it.next()) != inicio.get()) {}
 
                 for (int i = 0; i < actividades.getLongitud(); i++) {
+                    if (duracionMinima && actual.isOpcional()) continue;
+
                     actual.iniciarActividad(duracionMinima);
                     actual = it.next();
                 }
@@ -241,6 +243,53 @@ public class Proceso
         }
 
         if (encontrado) actividades.remover(indice);
+    }
+
+    public void removerActividad(String actividad)
+    {
+        Iterator<Actividad> it = actividades.iterator();
+        boolean encontrado = false;
+        int indice = 0;
+
+        while (it.hasNext() && ! encontrado) {
+            if (it.next().getNombre().equalsIgnoreCase(actividad)) {
+                encontrado = true;
+            } else {
+                indice++;
+            }
+        }
+
+        if (encontrado) actividades.remover(indice);
+    }
+
+    /**
+     * actualiza una actividad del proceso
+     * 
+     * @param original nombre de la actividad
+     * @param nuevo nuevos datos de la actividad
+     * 
+     * @throws ActividadRegistradaException si el nuevo nombre ya ha sido tomado
+     */
+    public boolean actualizarActividad(String original, Actividad nuevo) throws ActividadRegistradaException
+    {
+        for (Actividad actividad : actividades) {
+            if (actividad.getNombre().equalsIgnoreCase(original)) {
+                if (! nuevo.getNombre().equalsIgnoreCase(original)) {
+                    if (obtenerActividad(nuevo.getNombre()).isPresent()) {
+                        throw new ActividadRegistradaException();
+                    }
+                }
+
+                // reemplazar/actualizar la informacion
+                actividad.setOpcional(nuevo.isOpcional());
+                actividad.setDescripicion(nuevo.getDescripicion());
+                actividad.setTareas(nuevo.getTareas());
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Cola<Tarea> buscarTareas(String descripcion, Boolean opcional)

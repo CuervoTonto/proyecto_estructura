@@ -10,6 +10,7 @@ import co.edu.uniquindio.modelos.Proceso;
 
 public class Aplicativo
 {
+    final public static Aplicativo instancia = new Aplicativo();
     private ListaSimple<Proceso> procesos;
 
     public Aplicativo()
@@ -30,6 +31,39 @@ public class Aplicativo
     {
         for (Proceso proceso : procesos) {
             if (proceso.getId().equals(id)) return true;
+        }
+
+        return false;
+    }
+
+    public Optional<Proceso> encontrarProceso(String id)
+    {
+        for (Proceso proceso : procesos) {
+            if (proceso.getId().equals(id)) Optional.of(proceso);
+        }
+
+        return Optional.empty();
+    }
+
+    /**
+     * actualiza un proceso en el aplicativo
+     * 
+     * @param original id del proceso a actualizar
+     * @param nuevo los nuevos datos (solo se toma el nombre)
+     * 
+     * @return proceso actualizado exitosamente
+     */
+    public boolean actualizarProceso(String original, Proceso nuevo)
+    {
+        for (Proceso proceso : procesos) {
+            if (proceso.getId().equals(original)) {
+                // reemplazando la informacion del antiguo con la del nuevo
+                proceso.setNombre(nuevo.getNombre());
+                proceso.setActividades(nuevo.getActividades());
+                proceso.setUltimaRegistrada(nuevo.getUltimaRegistrada());
+
+                return true;
+            }
         }
 
         return false;
