@@ -10,14 +10,22 @@ public class AplicativoPersistencia
 {
     private String path = "resources/repositories/aplicativo.xml";
 
-    public AplicativoPersistencia() throws IOException
+    public AplicativoPersistencia()
     {
-        crearSiNoExiste();
+        try {
+            crearSiNoExiste();
+        } catch (Exception e) {
+            throw new RuntimeException("Error en la creacion del aplicativo");
+        }
     }
 
-    public Aplicativo obtener() throws IOException
+    public Aplicativo obtener()
     {
-        return (Aplicativo) Persistencia.leerXML(path);
+        try {
+            return (Aplicativo) Persistencia.leerXML(path);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void guardar(Aplicativo app) throws IOException

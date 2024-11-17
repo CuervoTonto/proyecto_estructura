@@ -7,15 +7,25 @@ import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.procesos.ProcesoRegistradoException;
 import co.edu.uniquindio.modelos.Actividad;
 import co.edu.uniquindio.modelos.Proceso;
+import co.edu.uniquindio.persistencias.AplicativoPersistencia;
 
 public class Aplicativo
 {
-    final public static Aplicativo instancia = new Aplicativo();
+    private static Aplicativo instancia;
     private ListaSimple<Proceso> procesos;
 
     public Aplicativo()
     {
         this.procesos = new ListaSimple<>();
+    }
+
+    public static Aplicativo instancia()
+    {
+        if (instancia == null) {
+            instancia = new AplicativoPersistencia().obtener();
+        }
+
+        return instancia;
     }
 
     public void registrarProceso(Proceso proceso) throws ProcesoRegistradoException
