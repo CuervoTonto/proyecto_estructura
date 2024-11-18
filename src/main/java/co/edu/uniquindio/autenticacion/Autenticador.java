@@ -1,7 +1,7 @@
 package co.edu.uniquindio.autenticacion;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
-import co.edu.uniquindio.excepciones.autenticacion.AutenticacionException;
+import co.edu.uniquindio.excepciones.autenticacion.UsuarioClaveIncorrectaException;
 import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistradoException;
 import co.edu.uniquindio.gestores.GestorUsuarios;
 import co.edu.uniquindio.modelos.Usuario;
@@ -10,7 +10,7 @@ public class Autenticador
 {
     private Autenticador() {};
 
-    public static boolean autenticar(Credenciales credenciales) throws AutenticacionException
+    public static boolean autenticar(Credenciales credenciales) throws UsuarioNoRegistradoException, UsuarioClaveIncorrectaException
     {
         Sesion.getInstancia().setUsuario(null);
 

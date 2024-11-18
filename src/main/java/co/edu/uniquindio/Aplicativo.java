@@ -9,6 +9,7 @@ import co.edu.uniquindio.modelos.Actividad;
 import co.edu.uniquindio.modelos.Proceso;
 import co.edu.uniquindio.persistencias.AplicativoPersistencia;
 import co.edu.uniquindio.utilidades.UtilidadILista;
+import co.edu.uniquindio.utilidades.UtilidadString;
 
 public class Aplicativo
 {
@@ -29,9 +30,11 @@ public class Aplicativo
         return instancia;
     }
 
-    public static void cargarAplicativo()
+    public static Aplicativo cargarAplicativo()
     {
         instancia = new AplicativoPersistencia().obtener();
+
+        return instancia;
     }
 
     public static void guardarAplicativo(Aplicativo aplicativo)
@@ -95,6 +98,25 @@ public class Aplicativo
         return false;
     }
 
+    public ListaSimple<Proceso> buscarProcesos(String id, String nombre)
+    {
+        ListaSimple<Proceso> resultado = new ListaSimple<>();
+
+        for (Proceso proceso : procesos) {
+            if (UtilidadString.iNoContiene(proceso.getId(), id)) {
+                continue;
+            }
+
+            if (UtilidadString.iNoContiene(proceso.getNombre(), nombre)) {
+                continue;
+            }
+
+            resultado.agregar(proceso);
+        }
+
+        return resultado;
+    }
+
     /**
      * obtiene los procesos que contengan una actividad
      * 
@@ -108,7 +130,7 @@ public class Aplicativo
 
         for (Proceso proceso : procesos) {
             Optional<Actividad> act = proceso.encontrarActividad(nombre);
-            act.ifPresent((a) -> activiades.agregar(proceso));
+            if (act.isPresent()) activiades.agregar(proceso);
         }
 
         return activiades;

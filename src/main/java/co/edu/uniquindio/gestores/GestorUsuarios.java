@@ -98,11 +98,11 @@ public class GestorUsuarios
      * 
      * @throws UsuarioRegistradoException
      */
-    public void registrar(Usuario usuario) throws UsuarioRegistradoException
+    public void registrar(Usuario usuario) throws CorreoEnUsoException
     {
         for (Usuario item : usuarios) {
             if (item.getCorreo().equalsIgnoreCase(usuario.getCorreo())) {
-                throw new UsuarioRegistradoException();
+                throw new CorreoEnUsoException();
             }
         }
 

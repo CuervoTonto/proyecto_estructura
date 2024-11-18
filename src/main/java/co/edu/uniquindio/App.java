@@ -13,24 +13,53 @@ import java.io.IOException;
  */
 public class App extends Application
 {
-    private static Scene scene;
+    private static App instacia;
+    private Scene scene;
+    private Stage stage;
+
+    public static App instancia()
+    {
+        return instacia;
+    }
 
     @Override
     public void start(Stage stage) throws IOException
     {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
+        App.instacia = this;
+        this.stage = stage;
+        // scene = new Scene(loadFXML("inicio"), 720, 480);
+        // scene = new Scene(loadFXML("AdminListaProcesos2"), 720, 480);
+        // stage.setScene(scene);
+        // stage.show();
+        setScene(new Scene(loadFXML("inicio"), 720, 480));
+    }
+
+    public void setScene(Scene scene) throws IOException
+    {
+        stage.setScene(this.scene = scene);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException
+    public void setRoot(String fxml) throws IOException
     {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException
+    public void setRoot(String fxml, Object controller) throws IOException
+    {
+        scene.setRoot(loadFXML(fxml, controller));
+    }
+
+    private Parent loadFXML(String fxml) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
+    private Parent loadFXML(String fxml, Object controller) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        fxmlLoader.setController(controller);
         return fxmlLoader.load();
     }
 

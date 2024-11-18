@@ -1,7 +1,7 @@
 package co.edu.uniquindio.autenticacion;
 
-import co.edu.uniquindio.excepciones.autenticacion.AutenticacionException;
 import co.edu.uniquindio.excepciones.autenticacion.UsuarioClaveIncorrectaException;
+import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistradoException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.modelos.Usuario.TipoUsuario;
 
@@ -11,6 +11,11 @@ public class Credenciales
     private String clave;
     private TipoUsuario tipo;
 
+    public Credenciales(String correo, String clave)
+    {
+        this(correo, clave, null);
+    }
+
     public Credenciales(String correo, String clave, TipoUsuario tipo)
     {
         this.correo = correo;
@@ -18,7 +23,7 @@ public class Credenciales
         this.tipo = tipo;
     }
 
-    public boolean comprobar(Usuario usuario) throws AutenticacionException
+    public boolean comprobar(Usuario usuario) throws UsuarioNoRegistradoException, UsuarioClaveIncorrectaException
     {
         if (usuario == null) return false;
 

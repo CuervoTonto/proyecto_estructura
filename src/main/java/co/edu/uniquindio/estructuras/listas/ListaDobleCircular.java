@@ -229,7 +229,7 @@ public class ListaDobleCircular<E> implements ILista<E>
         return new IteradorListaCircular(obtenerNodo(indice));
     }
 
-    public IteradorListaCircular iteradorDoble()
+    public IteradorDoble<E> iteradorDoble()
     {
         return new IteradorListaCircular(primero);
     }
