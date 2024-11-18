@@ -26,4 +26,9 @@ public interface ILista<E> extends Iterable<E>
      * @return elemento en el indice
      */
     public E obtener(int indice);
+
+    /**
+     * obtiene el numero de elementos en lista
+     */
+    public int getLongitud();
 }

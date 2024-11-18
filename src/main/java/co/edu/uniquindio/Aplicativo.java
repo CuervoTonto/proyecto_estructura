@@ -8,6 +8,7 @@ import co.edu.uniquindio.excepciones.procesos.ProcesoRegistradoException;
 import co.edu.uniquindio.modelos.Actividad;
 import co.edu.uniquindio.modelos.Proceso;
 import co.edu.uniquindio.persistencias.AplicativoPersistencia;
+import co.edu.uniquindio.utilidades.UtilidadILista;
 
 public class Aplicativo
 {
@@ -26,6 +27,21 @@ public class Aplicativo
         }
 
         return instancia;
+    }
+
+    public static void cargarAplicativo()
+    {
+        instancia = new AplicativoPersistencia().obtener();
+    }
+
+    public static void guardarAplicativo(Aplicativo aplicativo)
+    {
+        try {
+            new AplicativoPersistencia().guardar(aplicativo);
+            instancia = aplicativo;
+        } catch (Exception e) {
+            throw new RuntimeException("No se puedo guardar el aplicativo");
+        }
     }
 
     public void registrarProceso(Proceso proceso) throws ProcesoRegistradoException
@@ -49,7 +65,7 @@ public class Aplicativo
     public Optional<Proceso> encontrarProceso(String id)
     {
         for (Proceso proceso : procesos) {
-            if (proceso.getId().equals(id)) Optional.of(proceso);
+            if (proceso.getId().equals(id)) return Optional.of(proceso);
         }
 
         return Optional.empty();
@@ -91,7 +107,7 @@ public class Aplicativo
         ListaSimple<Proceso> activiades = new ListaSimple<>();
 
         for (Proceso proceso : procesos) {
-            Optional<Actividad> act = proceso.obtenerActividad(nombre);
+            Optional<Actividad> act = proceso.encontrarActividad(nombre);
             act.ifPresent((a) -> activiades.agregar(proceso));
         }
 
@@ -111,7 +127,7 @@ public class Aplicativo
         ListaSimple<Actividad> activiades = new ListaSimple<>();
 
         for (Proceso proceso : procesos) {
-            Optional<Actividad> act = proceso.obtenerActividad(nombre);
+            Optional<Actividad> act = proceso.encontrarActividad(nombre);
             act.ifPresent((a) -> activiades.agregar(a));
         }
 
@@ -164,5 +180,23 @@ public class Aplicativo
     public void setProcesos(ListaSimple<Proceso> procesos)
     {
         this.procesos = procesos;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Aplicativo other = (Aplicativo) obj;
+        if (procesos == null) {
+            if (other.procesos != null)
+                return false;
+        } else if (! UtilidadILista.iguales(procesos, other.procesos))
+            return false;
+        return true;
     }
 }

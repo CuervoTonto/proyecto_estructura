@@ -92,7 +92,7 @@ public class Pila<E>
      * 
      * @return numero de elementos
      */
-    public int longtiud()
+    public int longitud()
     {
         return this.longitud;
     }

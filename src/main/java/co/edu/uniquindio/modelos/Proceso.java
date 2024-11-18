@@ -8,6 +8,7 @@ import co.edu.uniquindio.estructuras.listas.ListaDobleCircular;
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 import co.edu.uniquindio.excepciones.procesos.ActividadNoEncontradaException;
+import co.edu.uniquindio.utilidades.UtilidadILista;
 
 public class Proceso
 {
@@ -35,7 +36,7 @@ public class Proceso
         if (iniciado) return;
 
         iniciado = true;
-        Optional<Actividad> inicio = obtenerActividad(actividad);
+        Optional<Actividad> inicio = encontrarActividad(actividad);
 
         if (inicio.isPresent()) {
             new Thread(() -> {
@@ -90,8 +91,8 @@ public class Proceso
      */
     public void intercambiarActividades(String act1, String act2)
     {
-        obtenerActividad(act1).ifPresent((a) -> {
-            obtenerActividad(act2).ifPresent((b) -> {
+        encontrarActividad(act1).ifPresent((a) -> {
+            encontrarActividad(act2).ifPresent((b) -> {
                 String temp = a.getNombre();
                 a.setNombre(b.getNombre());
                 b.setNombre(temp);
@@ -111,7 +112,7 @@ public class Proceso
         ultimaRegistrada = actividad.getNombre();
     }
 
-    public void registrarActividad(String predecesora, Actividad actividad) throws ActividadRegistradaException
+    public void registrarActividad(String predecesora, Actividad actividad) throws ActividadRegistradaException, ActividadNoEncontradaException
     {
         int indicePredecesor = -1;
         int indiceActual = 0;
@@ -128,11 +129,15 @@ public class Proceso
             indiceActual++;
         }
 
-        actividades.agregar(indicePredecesor, actividad);
+        if (indicePredecesor == -1) {
+            throw new ActividadNoEncontradaException();
+        }
+
+        actividades.agregar(indicePredecesor + 1, actividad);
         ultimaRegistrada = actividad.getNombre();
     }
 
-    public void registrarActividadDesdeAnterior(Actividad actividad) throws ActividadRegistradaException
+    public void registrarActividadDesdeAnterior(Actividad actividad) throws ActividadRegistradaException, ActividadNoEncontradaException
     {
         if (ultimaRegistrada != null) {
             registrarActividad(ultimaRegistrada, actividad);
@@ -141,7 +146,7 @@ public class Proceso
         }
     }
 
-    public Optional<Actividad> obtenerActividad(String nombre)
+    public Optional<Actividad> encontrarActividad(String nombre)
     {
         for (Actividad actividad : actividades) {
             if (actividad.getNombre().equalsIgnoreCase(nombre)) {
@@ -275,9 +280,11 @@ public class Proceso
         for (Actividad actividad : actividades) {
             if (actividad.getNombre().equalsIgnoreCase(original)) {
                 if (! nuevo.getNombre().equalsIgnoreCase(original)) {
-                    if (obtenerActividad(nuevo.getNombre()).isPresent()) {
+                    if (encontrarActividad(nuevo.getNombre()).isPresent()) {
                         throw new ActividadRegistradaException();
                     }
+
+                    actividad.setNombre(nuevo.getNombre());
                 }
 
                 // reemplazar/actualizar la informacion
@@ -305,6 +312,15 @@ public class Proceso
         }
 
         return tareas;
+    }
+
+    public Cola<Tarea> buscarTareasEnActividad(String actividad, String descripcion, Boolean opcional) throws ActividadNoEncontradaException
+    {
+        Optional<Actividad> act = encontrarActividad(actividad);
+
+        if (act.isEmpty()) throw new ActividadNoEncontradaException();
+
+        return act.get().buscarTareas(descripcion, opcional);
     }
 
     public String getId()
@@ -345,5 +361,42 @@ public class Proceso
     public void setUltimaRegistrada(String ultimaRegistrada)
     {
         this.ultimaRegistrada = ultimaRegistrada;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Proceso other = (Proceso) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        if (actividades == null) {
+            if (other.actividades != null)
+                return false;
+        } else if (! UtilidadILista.iguales(actividades, other.actividades))
+            return false;
+        if (ultimaRegistrada == null) {
+            if (other.ultimaRegistrada != null)
+                return false;
+        } else if (!ultimaRegistrada.equals(other.ultimaRegistrada))
+            return false;
+        if (iniciado == null) {
+            if (other.iniciado != null)
+                return false;
+        } else if (!iniciado.equals(other.iniciado))
+            return false;
+        return true;
     }
 }

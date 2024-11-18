@@ -43,4 +43,27 @@ public class Tarea
     {
         this.duracion = duracion;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Tarea other = (Tarea) obj;
+        if (descripcion == null) {
+            if (other.descripcion != null)
+                return false;
+        } else if (!descripcion.equalsIgnoreCase(other.descripcion))
+            return false;
+        if (opcional != other.opcional)
+            return false;
+        if (duracion != other.duracion)
+            return false;
+        return true;
+    }
+
+    
 }

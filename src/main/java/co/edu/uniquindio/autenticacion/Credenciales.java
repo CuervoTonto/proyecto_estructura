@@ -11,10 +11,11 @@ public class Credenciales
     private String clave;
     private TipoUsuario tipo;
 
-    public Credenciales(String correo, String clave)
+    public Credenciales(String correo, String clave, TipoUsuario tipo)
     {
         this.correo = correo;
         this.clave = clave;
+        this.tipo = tipo;
     }
 
     public boolean comprobar(Usuario usuario) throws AutenticacionException

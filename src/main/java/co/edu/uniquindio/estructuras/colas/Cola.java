@@ -146,9 +146,32 @@ public class Cola<E>
      * 
      * @return numero de elementos
      */
-    public int longtiud()
+    public int longitud()
     {
         return this.longitud;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        Cola<?> other = (Cola<?>) obj;
+
+        if (longitud() != other.longitud()) return false;
+
+        NodoSimple<E> aux1 = primero;
+        NodoSimple<?> aux2 = other.primero;
+
+        while (aux1 != null) {
+            if (! aux1.getValor().equals(aux2.getValor())) return false;
+            aux1 = aux1.getProximo();
+            aux2 = aux2.getProximo();
+        }
+
+        return true;
     }
 
     @Override

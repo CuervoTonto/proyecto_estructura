@@ -2,8 +2,10 @@ package co.edu.uniquindio.persistencias;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
+import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistradoException;
 import co.edu.uniquindio.excepciones.autenticacion.UsuarioRegistradoException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.utilidades.Persistencia;
@@ -20,20 +22,6 @@ public class UsuarioPersistencia
         ListaSimple<Usuario> usuarios = (ListaSimple<Usuario>) leido;
 
         return usuarios;
-    }
-
-    public void registrar(Usuario usuario) throws IOException, UsuarioRegistradoException
-    {
-        ListaSimple<Usuario> usuarios = todos();
-
-        for (Usuario item : usuarios) {
-            if (item.getCorreo().equalsIgnoreCase(usuario.getCorreo())) {
-                throw new UsuarioRegistradoException();
-            }
-        }
-
-        usuarios.agregar(usuario);
-        sobreescribir(usuarios);
     }
 
     public void sobreescribir(ListaSimple<Usuario> lista) throws IOException
