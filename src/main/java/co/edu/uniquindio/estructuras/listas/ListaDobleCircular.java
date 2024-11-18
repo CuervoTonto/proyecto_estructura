@@ -2,6 +2,7 @@ package co.edu.uniquindio.estructuras.listas;
 
 import java.util.Iterator;
 
+import co.edu.uniquindio.estructuras.iteradores.IteradorDoble;
 import co.edu.uniquindio.estructuras.nodos.NodoDoble;
 
 public class ListaDobleCircular<E> implements ILista<E>
@@ -233,7 +234,7 @@ public class ListaDobleCircular<E> implements ILista<E>
         return new IteradorListaCircular(primero);
     }
 
-    private class IteradorListaCircular implements Iterator<E>
+    private class IteradorListaCircular implements IteradorDoble<E>
     {
         private NodoDoble<E> inicial;
         private NodoDoble<E> actual;
@@ -263,6 +264,13 @@ public class ListaDobleCircular<E> implements ILista<E>
             return valor;
         }
 
+        @Override
+        public boolean hasPrevious()
+        {
+            return restantes > 0 && actual != null;
+        }
+
+        @Override
         public E previous()
         {
             E valor = actual.getValor();

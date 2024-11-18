@@ -2,11 +2,8 @@ package co.edu.uniquindio.persistencias;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
-import co.edu.uniquindio.excepciones.autenticacion.UsuarioNoRegistradoException;
-import co.edu.uniquindio.excepciones.autenticacion.UsuarioRegistradoException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.utilidades.Persistencia;
 
