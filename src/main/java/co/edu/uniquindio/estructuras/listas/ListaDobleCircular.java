@@ -267,7 +267,7 @@ public class ListaDobleCircular<E> implements ILista<E>
         @Override
         public boolean hasPrevious()
         {
-            return restantes > 0 && actual != null;
+            return restantes > 0 && actual != inicial;
         }
 
         @Override

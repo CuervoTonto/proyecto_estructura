@@ -27,10 +27,6 @@ public class App extends Application
     {
         App.instacia = this;
         this.stage = stage;
-        // scene = new Scene(loadFXML("inicio"), 720, 480);
-        // scene = new Scene(loadFXML("AdminListaProcesos2"), 720, 480);
-        // stage.setScene(scene);
-        // stage.show();
         setScene(new Scene(loadFXML("inicio"), 720, 480));
     }
 

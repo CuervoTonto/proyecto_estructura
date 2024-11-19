@@ -46,7 +46,7 @@ public class LogginControllerView {
             abrirVentanaSegunTipo(event);
         }
 
-        iniciarBtn.setDisable(true);
+        iniciarBtn.setDisable(false);
     }
 
     private void abrirVentanaSegunTipo(ActionEvent event) {

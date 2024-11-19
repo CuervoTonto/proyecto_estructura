@@ -3,6 +3,7 @@ package co.edu.uniquindio.utilidades.persistencia;
 import java.beans.Encoder;
 import java.beans.Expression;
 import java.beans.PersistenceDelegate;
+import java.beans.Statement;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
 
@@ -17,15 +18,17 @@ public class ColaDelegate extends PersistenceDelegate
     @Override
     protected void initialize(Class<?> type, Object old, Object newInstance, Encoder out)
     {
-        Cola<?> cola = (Cola<?>) old;
-        cola = cola.clone();
+        @SuppressWarnings("unchecked")
+        Cola<Object> cola = (Cola<Object>) old;
 
-        while (! cola.estaVacia()) {
+        for (int i = 0; i < cola.longitud(); i++) {
             Object object = cola.desencolar();
 
             out.writeStatement(
-                new Expression(old, "agregar", new Object[] { object })
+                new Statement(old, "encolar", new Object[] { object })
             );
+
+            cola.encolar(object);
         }
     }
 }

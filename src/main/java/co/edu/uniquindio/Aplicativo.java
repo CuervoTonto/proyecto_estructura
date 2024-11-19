@@ -47,6 +47,11 @@ public class Aplicativo
         }
     }
 
+    public static void guardarAplicativo()
+    {
+        guardarAplicativo(instancia());
+    }
+
     public void registrarProceso(Proceso proceso) throws ProcesoRegistradoException
     {
         if (procesoExistente(proceso.getId())) {

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.utilidades;
 
 import co.edu.uniquindio.excepciones.validaciones.FormatoCorreoInvalidoException;
+import co.edu.uniquindio.excepciones.validaciones.FormatoEnteroInvalidoException;
 import co.edu.uniquindio.excepciones.validaciones.ValidacionException;
 
 /**
@@ -38,6 +39,15 @@ final public class Validador
         for (String entrada : campos) {
             if (! entrada.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.([a-zA-Z]{2,4})$")) {
                 throw new FormatoCorreoInvalidoException();
+            }
+        }
+    }
+
+    public static void validarEnteros(String... campos) throws ValidacionException
+    {
+        for (String entrada : campos) {
+            if (! entrada.matches("^[0-9]*$")) {
+                throw new FormatoEnteroInvalidoException();
             }
         }
     }

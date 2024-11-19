@@ -3,8 +3,10 @@ package co.edu.uniquindio.utilidades.persistencia;
 import java.beans.Encoder;
 import java.beans.Expression;
 import java.beans.PersistenceDelegate;
+import java.beans.Statement;
 
 import co.edu.uniquindio.estructuras.listas.ILista;
+import co.edu.uniquindio.estructuras.listas.ListaSimple;
 
 public class ListaDelegate extends PersistenceDelegate
 {
@@ -18,10 +20,10 @@ public class ListaDelegate extends PersistenceDelegate
     protected void initialize(Class<?> type, Object old, Object newInstance, Encoder out)
     {
         ILista<?> lista = (ILista<?>) old;
-
+        
         for (Object item : lista) {
             out.writeStatement(
-                new Expression(old, "agregar", new Object[] { item })
+                new Statement(lista, "agregar", new Object[] { item })
             );
         }
     }

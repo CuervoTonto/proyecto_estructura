@@ -9,7 +9,7 @@ import co.edu.uniquindio.excepciones.tareas.TareaOpcionalException;
 public class Actividad
 {
     private String nombre;
-    private String descripicion;
+    private String descripcion;
     private boolean opcional;
     private Cola<Tarea> tareas;
 
@@ -22,7 +22,7 @@ public class Actividad
     {
         this.nombre = nombre;
         this.opcional = opcional;
-        this.descripicion = descripcion;
+        this.descripcion = descripcion;
         this.tareas = new Cola<>();
     }
 
@@ -83,6 +83,24 @@ public class Actividad
 
         // devolvemos el elemento en la cima
         return Optional.of(aux.desencolar());
+    }
+
+    /**
+     * encuentra la posicion de una tarea en la cola completa
+     * 
+     * @param tarea instancia en la cola (tiene que ser la misma instancia no una igual)
+     * 
+     * @return posicion en lista o -1 si no esta
+     */
+    public int posicionTarea(Tarea tarea)
+    {
+        Cola<Tarea> aux = tareas.clone();
+
+        for (int i = 0; i < tareas.longitud(); i++) {
+            if (aux.desencolar() == tarea) return i;
+        }
+
+        return -1;
     }
 
     public void registrarTarea(Tarea tarea) throws TareaOpcionalException
@@ -252,14 +270,14 @@ public class Actividad
         this.nombre = nombre;
     }
 
-    public String getDescripicion()
+    public String getDescripcion()
     {
-        return descripicion;
+        return descripcion;
     }
 
-    public void setDescripicion(String descripicion)
+    public void setDescripcion(String descripcion)
     {
-        this.descripicion = descripicion;
+        this.descripcion = descripcion;
     }
 
     public boolean isOpcional()
@@ -297,10 +315,10 @@ public class Actividad
                 return false;
         } else if (!nombre.equals(other.nombre))
             return false;
-        if (descripicion == null) {
-            if (other.descripicion != null)
+        if (descripcion == null) {
+            if (other.descripcion != null)
                 return false;
-        } else if (!descripicion.equals(other.descripicion))
+        } else if (!descripcion.equals(other.descripcion))
             return false;
         if (opcional != other.opcional)
             return false;

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.colas.Cola;
 import co.edu.uniquindio.estructuras.listas.ListaDobleCircular;
-import co.edu.uniquindio.estructuras.listas.ListaSimple;
 import co.edu.uniquindio.excepciones.actividades.ActividadRegistradaException;
 import co.edu.uniquindio.excepciones.procesos.ActividadNoEncontradaException;
 import co.edu.uniquindio.utilidades.UtilidadILista;
@@ -157,9 +156,9 @@ public class Proceso
         return Optional.empty();
     }
 
-    public ListaSimple<Actividad> buscarActividad(String nombre, String descripcion, Boolean opcional)
+    public ListaDobleCircular<Actividad> buscarActividad(String nombre, String descripcion, Boolean opcional)
     {
-        ListaSimple<Actividad> resultado = new ListaSimple<>();
+        ListaDobleCircular<Actividad> resultado = new ListaDobleCircular<>();
 
         for (Actividad actividad : this.actividades) {
             // si se esta filtrando por opcionales y la propiedad
@@ -173,8 +172,8 @@ public class Proceso
             // si se esta filtrando por descripciones y la propiedad
             // de la actividad no coincide pasar a la siguiente
             if (descripcion != null) {
-                if (actividad.getDescripicion() != null) {
-                    if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
+                if (actividad.getDescripcion() != null) {
+                    if (! actividad.getDescripcion().matches("(?i).*" + descripcion + ".*")) {
                         continue;
                     }
                 } else {
@@ -214,7 +213,7 @@ public class Proceso
 
             // filtrar actividades por descripcion
             if (descripcion != null) {
-                if (! actividad.getDescripicion().matches("(?i).*" + descripcion + ".*")) {
+                if (! actividad.getDescripcion().matches("(?i).*" + descripcion + ".*")) {
                     continue;
                 }
             }
@@ -289,7 +288,7 @@ public class Proceso
 
                 // reemplazar/actualizar la informacion
                 actividad.setOpcional(nuevo.isOpcional());
-                actividad.setDescripicion(nuevo.getDescripicion());
+                actividad.setDescripcion(nuevo.getDescripcion());
                 actividad.setTareas(nuevo.getTareas());
 
                 return true;
@@ -398,5 +397,13 @@ public class Proceso
         } else if (!iniciado.equals(other.iniciado))
             return false;
         return true;
+    }
+
+    public Boolean getIniciado() {
+        return iniciado;
+    }
+
+    public void setIniciado(Boolean iniciado) {
+        this.iniciado = iniciado;
     }
 }
