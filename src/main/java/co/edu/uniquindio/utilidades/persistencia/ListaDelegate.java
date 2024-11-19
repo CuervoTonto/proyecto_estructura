@@ -6,7 +6,6 @@ import java.beans.PersistenceDelegate;
 import java.beans.Statement;
 
 import co.edu.uniquindio.estructuras.listas.ILista;
-import co.edu.uniquindio.estructuras.listas.ListaSimple;
 
 public class ListaDelegate extends PersistenceDelegate
 {

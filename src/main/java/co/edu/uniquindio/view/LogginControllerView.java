@@ -1,6 +1,5 @@
 package co.edu.uniquindio.view;
 
-import co.edu.uniquindio.Aplicativo;
 import co.edu.uniquindio.App;
 import co.edu.uniquindio.autenticacion.Autenticador;
 import co.edu.uniquindio.autenticacion.Credenciales;

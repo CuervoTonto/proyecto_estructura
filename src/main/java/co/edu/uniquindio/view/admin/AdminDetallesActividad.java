@@ -185,9 +185,4 @@ public class AdminDetallesActividad {
         tablaTareas.refresh();
         lblNumResultados.setText("resultados: " + tareas.longitud());
     }
-
-    private class FilaTarea {
-        public int posicion;
-
-    }
 }
