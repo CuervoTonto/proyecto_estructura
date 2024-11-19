@@ -139,6 +139,11 @@ public class AdminListaProcesos {
         eliminarBtn.setDisable(false);
     }
 
+    @FXML
+    void irAUsuarios() throws IOException {
+        App.instancia().setRoot("admin/AdminListaUsuario");
+    }
+
     private void actualizarTabla(ListaSimple<Proceso> procesos) {
         ObservableList<Proceso> coll  = FXCollections.observableArrayList();
 

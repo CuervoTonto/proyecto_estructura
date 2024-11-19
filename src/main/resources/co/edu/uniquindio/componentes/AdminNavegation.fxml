@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="inicioBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="111.0" style="-fx-stroke: blue; -fx-background-radius: 0px; -fx-background-color: trasnsparent; -fx-underline: true;" text="INICIO" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="609.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="logoutBtn" layoutX="574.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="146.0" style="-fx-stroke: blue; -fx-background-radius: 0px; -fx-background-color: trasnsparent; -fx-underline: true;" text="CERRAR SESION">
+         <font>
+            <Font name="Roboto" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

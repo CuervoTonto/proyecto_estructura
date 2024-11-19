@@ -1,6 +1,7 @@
 package co.edu.uniquindio.gestores;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Optional;
 
 import co.edu.uniquindio.estructuras.listas.ListaSimple;
@@ -10,6 +11,7 @@ import co.edu.uniquindio.excepciones.usuarios.CorreoEnUsoException;
 import co.edu.uniquindio.modelos.Usuario;
 import co.edu.uniquindio.modelos.Usuario.TipoUsuario;
 import co.edu.uniquindio.persistencias.UsuarioPersistencia;
+import co.edu.uniquindio.utilidades.UtilidadString;
 
 public class GestorUsuarios
 {
@@ -35,11 +37,15 @@ public class GestorUsuarios
      * 
      * @throws IOException errror con el fichero
      */
-    public static GestorUsuarios cargarGestor() throws IOException
+    public static GestorUsuarios cargarGestor()
     {
-        instancia().usuarios = new UsuarioPersistencia().todos();
-        
-        return instancia;
+        try {
+            instancia().usuarios = new UsuarioPersistencia().todos();
+
+            return instancia;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -91,6 +97,27 @@ public class GestorUsuarios
         return resultado;
     }
 
+    public ListaSimple<Usuario> buscarUsuario(String nombre, String correo, TipoUsuario tipo)
+    {
+        ListaSimple<Usuario> resultado = new ListaSimple<>();
+
+        for (Usuario usuario : usuarios) {
+            if (tipo != null && usuario.getTipo() != tipo) {
+                continue;
+            }
+
+            if (UtilidadString.iNoContiene(usuario.getNombre(), nombre)) {
+                continue;
+            }
+
+            if (UtilidadString.iContiene(usuario.getCorreo(), correo)) {
+                resultado.agregar(usuario);
+            }
+        }
+
+        return resultado;
+    }
+
     /**
      * registra un nuevo usuario
      * 
@@ -118,10 +145,20 @@ public class GestorUsuarios
      */
     public void remover(String correo) throws IOException
     {
-        for (Usuario usuario : usuarios) {
-            if (! usuario.getCorreo().equalsIgnoreCase(correo)) {
-                usuarios.agregar(usuario);
+        int indice = -1;
+        int indiceActual = 0;
+        Iterator<Usuario> it = usuarios.iterator();
+
+        while (indice == -1 && it.hasNext()) {
+            if (it.next().getCorreo().equalsIgnoreCase(correo)) {
+                indice = indiceActual;
             }
+
+            indiceActual++;
+        }
+
+        if (indice != -1) {
+            usuarios.remover(indice);
         }
     }
 

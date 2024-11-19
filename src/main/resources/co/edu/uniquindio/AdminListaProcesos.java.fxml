@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Procesos">
+         <font>
+            <Font name="Roboto Bold" size="20.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tablaProcesos" layoutX="15.0" layoutY="69.0" prefHeight="229.0" prefWidth="570.0">
+        <columns>
+          <TableColumn fx:id="tablaProcesosId" prefWidth="140.0" text="Id" />
+          <TableColumn fx:id="tablaProcesosNombre" prefWidth="290.0" text="Nombre" />
+            <TableColumn fx:id="tablaProcesosEstado" prefWidth="139.0" text="Estado" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="119.0" layoutY="330.0" prefHeight="30.0" prefWidth="363.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="30.0" prefWidth="0.0">
+               <center>
+                  <Button fx:id="crearBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Crear" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <center>
+                  <Button fx:id="detallesBtn" disable="true" mnemonicParsing="false" text="Mirar detalles" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="85.0" layoutY="135.0" prefHeight="30.0" prefWidth="27.0" GridPane.columnIndex="2">
+               <center>
+                  <Button fx:id="editarBtn" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Editar" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="24.0" layoutY="-30.0" prefHeight="30.0" prefWidth="61.0" GridPane.columnIndex="3">
+               <center>
+                  <Button fx:id="eliminarBtn" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Eliminar" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

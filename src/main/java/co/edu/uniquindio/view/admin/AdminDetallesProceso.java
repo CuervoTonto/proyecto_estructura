@@ -154,6 +154,11 @@ public class AdminDetallesProceso {
         );
     }
 
+    @FXML
+    void irAUsuarios() throws IOException {
+        App.instancia().setRoot("admin/AdminListaUsuarios");
+    }
+
     private void actualizarTabla(ListaDobleCircular<Actividad> actividades) {
         ObservableList<Actividad> datos = FXCollections.observableArrayList();
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.view.AdminListaProcesos">
+   <center>
+      <AnchorPane prefHeight="270.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="29.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Procesos">
+               <font>
+                  <Font name="Roboto Bold" size="20.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tablaProcesos" layoutX="29.0" layoutY="117.0" prefHeight="229.0" prefWidth="669.0">
+               <columns>
+                  <TableColumn fx:id="tablaProcesosId" prefWidth="140.0" text="Id" />
+                  <TableColumn fx:id="tablaProcesosNombre" prefWidth="408.0" text="Nombre" />
+                  <TableColumn fx:id="tablaProcesosEstado" prefWidth="120.0" text="Estado" />
+               </columns>
+            </TableView>
+            <GridPane layoutX="29.0" layoutY="354.0" prefHeight="30.0" prefWidth="363.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <BorderPane prefHeight="30.0" prefWidth="0.0">
+                     <center>
+                        <Button fx:id="crearBtn" mnemonicParsing="false" onAction="#crearProceso" prefHeight="25.0" prefWidth="82.0" text="Crear" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+                  <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <center>
+                        <Button fx:id="detallesBtn" mnemonicParsing="false" onAction="#detallesProceso" text="Mirar detalles" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+                  <BorderPane layoutX="85.0" layoutY="135.0" prefHeight="30.0" prefWidth="27.0" GridPane.columnIndex="2">
+                     <center>
+                        <Button fx:id="editarBtn" mnemonicParsing="false" onAction="#editarProceso" prefHeight="25.0" prefWidth="85.0" text="Editar" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+                  <BorderPane layoutX="30.0" layoutY="-30.0" prefHeight="30.0" prefWidth="61.0" GridPane.columnIndex="3">
+                     <center>
+                        <Button fx:id="eliminarBtn" mnemonicParsing="false" onAction="#removerProceso" prefHeight="25.0" prefWidth="88.0" text="Eliminar" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </children>
+            </GridPane>
+            <TextField fx:id="busquedaNombre" layoutX="182.0" layoutY="78.0" prefHeight="25.0" prefWidth="221.0" promptText="nombre del proceso" />
+            <Button fx:id="buscarBtn" layoutX="414.0" layoutY="78.0" mnemonicParsing="false" onAction="#iniciarBusqueda" prefHeight="25.0" prefWidth="13.0" text="">
+               <font>
+                  <Font name="FiraCode Nerd Font Reg" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="busquedaId" layoutX="29.0" layoutY="78.0" prefHeight="25.0" prefWidth="139.0" promptText="id del proceso" />
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="720.0" style="-fx-border-color: #ccc; -fx-background-color: #ddd;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="navInicio" mnemonicParsing="false" onAction="#volverInicio" prefHeight="40.0" prefWidth="111.0" style="-fx-background-radius: 0px; -fx-background-color: #0000; -fx-underline: true;" text="INICIO" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="609.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutBtn" layoutX="574.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="40.0" prefWidth="146.0" style="-fx-stroke: blue; -fx-background-radius: 0px; -fx-background-color: #0000; -fx-underline: true;" text="CERRAR SESION">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="navUsuarios" layoutX="110.0" mnemonicParsing="false" onAction="#irAUsuarios" prefHeight="40.0" prefWidth="111.0" style="-fx-background-radius: 0px; -fx-background-color: #0000; -fx-underline: true;" text="USUARIOS">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

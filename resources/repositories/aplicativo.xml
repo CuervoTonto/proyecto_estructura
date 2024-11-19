@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="22.0.1" class="java.beans.XMLDecoder">
+ <object class="co.edu.uniquindio.Aplicativo" id="Aplicativo0">
+  <void property="procesos">
+   <void method="agregar">
+    <object class="co.edu.uniquindio.modelos.Proceso" id="Proceso0">
+     <void property="actividades">
+      <void method="agregar">
+       <object class="co.edu.uniquindio.modelos.Actividad" id="Actividad0">
+        <void property="descripcion">
+         <string>primer actividad</string>
+        </void>
+        <void property="nombre">
+         <string>Act #1</string>
+        </void>
+        <void id="Cola0" property="tareas">
+         <void method="encolar">
+          <object class="co.edu.uniquindio.modelos.Tarea">
+           <void property="descripcion">
+            <string>primera</string>
+           </void>
+           <void property="duracion">
+            <int>5</int>
+           </void>
+           <void property="opcional">
+            <boolean>true</boolean>
+           </void>
+          </object>
+         </void>
+         <void method="encolar">
+          <object class="co.edu.uniquindio.modelos.Tarea">
+           <void property="descripcion">
+            <string>segunda</string>
+           </void>
+           <void property="duracion">
+            <int>12</int>
+           </void>
+          </object>
+         </void>
+         <void method="encolar">
+          <object class="co.edu.uniquindio.modelos.Tarea">
+           <void property="descripcion">
+            <string>tercera</string>
+           </void>
+           <void property="duracion">
+            <int>10</int>
+           </void>
+           <void property="opcional">
+            <boolean>true</boolean>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="tareas">
+         <object idref="Cola0"/>
+        </void>
+       </object>
+      </void>
+      <void method="agregar">
+       <object class="co.edu.uniquindio.modelos.Actividad">
+        <void property="descripcion">
+         <string>a</string>
+        </void>
+        <void property="nombre">
+         <string>Segunda actividad </string>
+        </void>
+       </object>
+      </void>
+     </void>
+     <void property="id">
+      <string>123</string>
+     </void>
+     <void property="nombre">
+      <string>eliminar</string>
+     </void>
+     <void property="ultimaRegistrada">
+      <string>Segunda actividad </string>
+     </void>
+    </object>
+   </void>
+   <void method="agregar">
+    <object class="co.edu.uniquindio.modelos.Proceso">
+     <void property="id">
+      <string>1a2b3c</string>
+     </void>
+     <void property="nombre">
+      <string>Una actividad nose</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
